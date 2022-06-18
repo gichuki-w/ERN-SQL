@@ -29,7 +29,6 @@ app.post('/create', (req, res) => {
         }
     })
 })
-
 app.get('/people', (req, res) => {
     db.query('SELECT * FROM `people`', (err, result) => {
         if (err)
@@ -38,7 +37,5 @@ app.get('/people', (req, res) => {
             res.json(result)
         }
     })
-
 })
-
 app.listen('5500', () => { console.log('Your server is running') })
