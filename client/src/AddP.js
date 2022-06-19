@@ -1,13 +1,5 @@
-import './AddP.css';
-
-
-
-function AddP({setName, setEmail, setPost}) {
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-    }
+function AddP({setName, setEmail, setPost, handleSubmit}) {
+    
     return (
         <form
             className='add-p-form'
@@ -18,18 +10,21 @@ function AddP({setName, setEmail, setPost}) {
                 className='add-p-input'
                 type="text"
                 id='name'/>
-            <label htmlFor="email" className='add-p-label'>Name</label>
+            <label htmlFor="email" className='add-p-label'>Email</label>
             <input
                 onChange={(e) => setEmail(e.target.value)}
                 className='add-p-input'
                 type="text"
                 id='email'/>
-            <label htmlFor="post" className='add-p-label'>Name</label>
+            <label htmlFor="post" className='add-p-label'>Post</label>
             <input
                 onChange={(e) => setPost(e.target.value)}
                 className='add-p-input'
                 type="text"
-                id='post'/>
+                id='post' />
+            <button
+            // onSubmit={handleSubmit}
+            >Submit</button>
         </form>
     )
 }

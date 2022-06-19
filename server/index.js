@@ -10,27 +10,23 @@ const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: '',
-    database: 'kaykilo'
+    database: 'addptest'
 })
-
 app.post('/create', (req, res) => {
-    console.log(req.body)
-    const name = req.body.Name
-    const age = req.body.Age
-    const country = req.body.Country
-    const wage = req.body.Wage
-    const school = req.body.School
-
-    db.query('INSERT INTO `kaykilo`.`people` (`name`, `age`, `country`, `wage`, `school`) VALUES (?,?,?,?,?)', [name, age, country, wage, school], (err, result) => {
+    // console.log(req.body)
+    const name = req.body.name
+    const email = req.body.email
+    const post = req.body.post
+    db.query('INSERT INTO `addptest`.`test` (`name`, `email`, `post`) VALUES (?,?,?)', [name, email, post], (err, result) => {
         if (err)
             console.log('ERRRRRRRROR' + err)
         else {
-            res.json('values inserted')
+            res.json('Input Recorded')
         }
     })
 })
 app.get('/people', (req, res) => {
-    db.query('SELECT * FROM `people`', (err, result) => {
+    db.query('SELECT * FROM `test`', (err, result) => {
         if (err)
             console.log('ERRRRRRRROR' + err)
         else {

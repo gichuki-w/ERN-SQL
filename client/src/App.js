@@ -1,66 +1,53 @@
-import './App.css';
-import {useState} from 'react'
+import './addp.css'
+import { useState, useEffect } from 'react'
+import AddP from './AddP'
+import List from './List.js'
 import Axios from 'axios'
-
 function App() {
-  const [Name, setName] = useState("");
-  const [Age, setAge] = useState(0);
-  const [Country, setCountry] = useState("");
-  const [Wage, setWage] = useState(0);
-  const [School, setSchool] = useState("");
-  const [people, setPeople] = useState([]);
-  const addPerson = () => {
-    Axios.post('http://localhost:5500/create', {
-      Name,
-      Age,
-      Country,
-      Wage,
-      School
-    }).then(() => {
-      setPeople([...people],{
-      Name,
-      Age,
-      Country,
-      Wage,
-      School
-      })
-    })
-  }
-  const getPeople = () => {
-    Axios.get('http://localhost:5500/people').then((response) => {
-      setPeople(response.data)
-    })
-  }
-  return (
-    <div className="App">
-      <div className='information'>
-        <label>Name</label>
-        <input type="text"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label>Age</label>
-        <input type="number"
-          onChange={(e) => setAge(e.target.value)}
-        />
-        <label>Country</label>
-        <input type="text"
-          onChange={(e) => setCountry(e.target.value)}
-        />
-        <label>Wage</label>
-        <input type="number"
-          onChange={(e) => setWage(e.target.value)}
-        />
-        <label>Shool</label>
-        <input type="text"
-          onChange={(e) => setSchool(e.target.value)}
-        />
-        <button
-          onClick={addPerson}
-        >Add</button>
-      </div>
-      {/* {getPeople} */}
-      {people.map((val, key) => {return <div>{val.name}, {val.Age}</div>})}
-    </div>
-  );
+    const [name, setName] = useState()
+    const [email, setEmail] = useState()
+    const [post, setPost] = useState()
+    const [all, setAll] = useState([])
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        Axios.post('http://localhost:5500/create', {
+            name,
+            email,
+            post
+        }).then(() => {
+            // console.log("DONE")
+            // setAll()
+        })
+    }
+    const getList = () => {
+        Axios.get('http://localhost:5500/people').then((response) => {
+          setAll(response.data)
+        })
+    }
+    useEffect(() => {
+        getList();
+      }, []);
+      console.log(all)
+    return (
+        <div className='app'>
+            <AddP
+                setName={setName}
+                setEmail={setEmail}
+                setPost={setPost}
+                handleSubmit={handleSubmit}
+            />
+            <List
+                key={all.id}
+                all={all}
+                setAll={setAll}
+                getList={getList}
+            />
+        </div>
+    )
 }
-export default App;
+export default App
+
+
+
+
+
